@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - XYZ Company</title>
     <style>
-        /* Reset margin and padding */
+        /* CSS styles as before */
         * {
             margin: 0;
             padding: 0;
@@ -21,7 +21,6 @@
             background-color: #f0f0f0;
         }
 
-        /* Login form container */
         .login-container {
             background-color: white;
             padding: 30px;
@@ -37,7 +36,6 @@
             color: #333;
         }
 
-        /* Input fields */
         .login-container label {
             display: block;
             margin: 10px 0 5px;
@@ -54,7 +52,6 @@
             font-size: 16px;
         }
 
-        /* Login button */
         .login-container button {
             width: 100%;
             padding: 12px;
@@ -71,7 +68,6 @@
             background-color: #0077cc;
         }
 
-        /* Sign-up link */
         .login-container p {
             text-align: center;
             margin-top: 15px;
@@ -85,6 +81,12 @@
         .login-container p a:hover {
             text-decoration: underline;
         }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -92,7 +94,18 @@
     <!-- Login Form -->
     <div class="login-container">
         <h2>Login</h2>
-        <form action="dashboard.html" method="post">
+
+        <!-- Check if error parameter exists -->
+        <%
+            String error = request.getParameter("error");
+            if (error != null && error.equals("true")) {
+        %>
+            <div class="error-message">Invalid username or password. Please try again.</div>
+        <%
+            }
+        %>
+
+        <form action="LoginServlet" method="post">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
 
@@ -100,8 +113,6 @@
             <input type="password" id="password" name="password" required>
 
             <button type="submit">Login</button>
-
-
         </form>
     </div>
 
